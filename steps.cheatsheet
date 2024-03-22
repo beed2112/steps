@@ -1,0 +1,28 @@
+steps.cheatsheet
+
+organized reference
+https://docs.google.com/document/d/1wTC4Uk5Y204qj8-FtfMbWBA71baslxLay9e6hvA3ttY/edit
+
+oscp playbook 
+https://fareedfauzi.gitbook.io/oscp-playbook/port-scanning/nmap-scanning
+
+https://rednode.com/privilege-escalation/windows-privilege-escalation-cheat-sheet/#dangerous-user-privileges
+
+hydra
+https://github.com/frizb/Hydra-Cheatsheet
+
+
+IMpacket 
+https://cheatsheet.haax.fr/windows-systems/exploitation/remote_execution_techniques/
+
+crackmapexec
+
+https://www.ivoidwarranties.tech/posts/pentesting-tuts/cme/crackmapexec/
+
+https://github.com/byt3bl33d3r/CrackMapExec/wiki/Using-Credentials
+
+
+
+# Scan entire network for a directory traversal vulnerability. It can even retrieve admin's password hash.
+nmap -p 80 --script=http-vuln-cve2010-2861 [ip target]/24
+

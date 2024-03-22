@@ -1,0 +1,37 @@
+steps.settingUp
+
+
+Steps to prep for a Question
+mkdir ~/pen-200/<name>
+open that folder in code
+create boxes file(s)
+enumSetup <boxfile>
+scripts will be created
+./scan- runs all individual scripts
+add proxychains to generated scanning scripts
+
+
+
+
+
+Working a host 
+
+build screenshot command line
+flameshot gui --path  ~/pen-200/~/pen-200/<name>/<host>/report/screenshots
+
+locate in the IP  folder working on  and use alias SS 
+
+flameshot gui --path  ${PWD}/report/screenshots
+
+ 
+echo "${PWD}/report/screenshots"
+
+
+
+report
+
+
+
+
+this will ceate in required format
+/home/beed2112/offsec/preparePDF.sh

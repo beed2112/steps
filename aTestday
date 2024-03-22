@@ -1,0 +1,55 @@
+
+Exam guide
+https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide
+
+VPN Stuff
+https://help.offsec.com/hc/en-us/articles/360046293832-Common-VPN-Connectivity-issues
+
+
+cp ~/Downloads/exam-connection.tar.bz2
+tar xvfj exam-connection.tar.bz2
+sudo openvpn <OSID>-OSCP.ovpn
+
+──(beed2112㉿barchetta)-[~/Downloads]
+└─$ sudo openvpn <OSID>-OSCP.ovpn
+
+https://proctoring.offensive-security.com/Student/Dashboard
+
+
+
+
+
+Username: <OSID>
+Password: <pass>
+
+
+You are taking a proctored version of the exam. As such, you will need to be present 15 minutes prior to your scheduled exam time to complete the identity verification and proctor set up tasks. Please connect to the Proctoring Software [2] 15 minutes before your scheduled exam time. 
+
+https://proctoring.offensive-security.com/student/login
+
+When prompted to login, please enter only the 
+numeric portion of your OSID 
+and the following md5 value: 
+
+
+Username: <OSID>
+Password: 
+
+
+
+/home/beed2112/offsec/preparePDF.sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

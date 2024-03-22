@@ -1,0 +1,48 @@
+steps.linuxPE
+
+
+id
+hostname
+cat /etc/issue       # os deets
+cat /etc/os-release  # os deets
+uname -a
+sudo -l
+ip a
+ps aux   #processes
+pspy     # processes 
+netstat  # listening
+ss -anp  # listening 
+
+cat /etc/iptables/rules.v4 
+
+find / -writable -type d 2>/dev/null   #writeable directories
+
+find / -writable -type f 2>/dev/null   #writeable files
+
+find / -readable -type f 2>/dev/null   #readable files 
+
+find / -perm -u=s -type f 2>/dev/null    #SUID bins
+
+find / -perm -g=s -type f 2>/dev/null   #SGID
+
+look for creds/passwords (copule with find to do in bulk 
+)
+grep -i user [filename]
+grep -i pass [filename]
+grep -C 5 "password" [filename]
+
+find . -type f -readable -exec grep -i user {} \; 2>/dev/null
+find . -type f -readable -exec grep -i pass {} \; 2>/dev/null
+find . -type f -readable -exec grep -C 5 "password" {} \; 2>/dev/null
+
+find . -name "*.php" -print0 | xargs -0 grep -i -n "var $password"
+
+
+
+unix-privesc-check  (p546)
+http://pentestmonkey.net/tools/unix-privesc-check
+
+
+Abusing Password Authentication  (p553)
+
+if you can write to /etc/passwd     

